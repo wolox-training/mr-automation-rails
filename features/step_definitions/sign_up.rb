@@ -1,5 +1,5 @@
 require 'faker'
-
+require './services/helper.rb'
 # Navigation to sign up page:
 
 Given('I am on the login page') do
@@ -7,19 +7,14 @@ Given('I am on the login page') do
 end
 
 And('I click on the registration button') do
+  wait_for_element_to_be_ready(:id, 'sign-up')
   click(:id, 'sign-up')
 end
 
 # Successful registration:
 
-When('The form is displayed') do
-  is_element_displayed(:id, 'first_name')
-  is_element_displayed(:id, 'lasy_name')
-  is_element_displayed(:id, 'email')
-  is_element_displayed(:id, 'password')
-end
-
-And('I fill all the required fields') do
+When('I fill all the required fields') do
+  wait_for_form_fields(:id, %w[firstname lastname email password])
   enter_text(:id, Faker::Name.first_name, 'firstname')
   enter_text(:id, Faker::Name.last_name, 'lastname')
   enter_text(:id, Faker::Internet.email(domain: 'wolox.com.ar'), 'email')
@@ -37,11 +32,13 @@ end
 
 # Unsuccessful registration: Empty parameters
 
-And('I leave the {string} field empty') do |field|
+When('I leave the {string} field empty') do |field|
+  wait_for_element_to_be_ready(:id, field)
   enter_text(:id, '', field)
 end
 
 And('I click some other field') do
+  wait_for_element_to_be_ready(:id, 'unauth_container')
   click(:id, 'unauth_container')
 end
 
@@ -57,7 +54,8 @@ end
 
 # Unsuccessful registration: invalid email/password
 
-And('I fill the {string} field with invalid information like: {string}') do |field, information|
+When('I fill the {string} field with invalid information like: {string}') do |field, information|
+  wait_for_element_to_be_ready(:id, field)
   enter_text(:id, information, field)
 end
 
@@ -68,7 +66,8 @@ Then('A invalid {string} message will pop up') do |field|
 end
 
 # Unsuccessful registration: email already taken
-And('I fill the required fields but the email already exists in the database') do
+When('I fill the required fields but the email already exists in the database') do
+  wait_for_form_fields(:id, %w[firstname lastname email password])
   enter_text(:id, Faker::Name.first_name, 'firstname')
   enter_text(:id, Faker::Name.last_name, 'lastname')
   enter_text(:id, ENV['EXISTING_EMAIL'], 'email')
