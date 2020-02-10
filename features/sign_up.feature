@@ -7,17 +7,19 @@ Feature: Sign Up
   Scenario: Successful registration
     Given I am on the login page
     And I click on the registration button
-    When I fill all the required fields
+    When The form is displayed
+    And I fill all the required fields
     And I click on the submit button
     Then I will be redirected to the login page
 
   Scenario Outline: Unsuccessful registration: Empty parameters
     Given I am on the login page
     And I click on the registration button
-    When I leave the "<field>" field empty
+    When The form is displayed
+    And I leave the "<field>" field empty
     And I click some other field
     And I click on the submit button
-    Then A required field message will pop up for "<field>"
+    Then A "This field is required" error message will pop up
     And I will not be redirected to the login page
 
     Examples:
@@ -30,7 +32,8 @@ Feature: Sign Up
   Scenario Outline: Unsuccessful registration: invalid email
     Given I am on the login page
     And I click on the registration button
-    When I fill the "email" field with invalid information like: "<information>"
+    When The form is displayed
+    And I fill the "email" field with invalid information like: "<information>"
     And I click some other field
     And I click on the submit button
     Then A invalid "email" message will pop up
@@ -45,7 +48,8 @@ Feature: Sign Up
   Scenario: Unsuccessful registration: invalid password
     Given I am on the login page
     And I click on the registration button
-    When I fill the "password" field with invalid information like: "bad password"
+    When The form is displayed
+    And I fill the "password" field with invalid information like: "bad password"
     And I click some other field
     And I click on the submit button
     Then A invalid "password" message will pop up
@@ -54,7 +58,8 @@ Feature: Sign Up
   Scenario: Unsuccessful registration: email already taken
     Given I am on the login page
     And I click on the registration button
-    When I fill the required fields but the email already exists in the database
+    When The form is displayed
+    And I fill the required fields but the email already exists in the database
     And I click on the submit button
     Then An email already taken error message should pop up
     And I will not be redirected to the login page
