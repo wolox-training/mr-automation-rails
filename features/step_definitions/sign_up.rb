@@ -17,6 +17,7 @@ When('I fill the required fields of the registration form') do
 end
 
 And('I click on the submit button') do
+  wait_for_element_to_display(:id, 'submit_register', 1)
   click(:id, 'submit_register')
 end
 

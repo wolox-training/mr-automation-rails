@@ -9,7 +9,7 @@ Feature: Sign In
     Given I am on the login page
     When I fill the required fields of the login form
     And I click on the login button
-    Then I will be redirected to the user home page
+    Then I will "redirect to" the "books" page
 
   Scenario Outline: Unsuccessful login: Empty parameters
     Given I am on the login page
@@ -17,7 +17,7 @@ Feature: Sign In
     And I click some other field
     And I click on the login button
     Then A "This field is required" error message will pop up
-    And I will remain on the "login" page
+    And I will "remain in" the "login" page
 
     Examples:
       | field    |
@@ -30,7 +30,7 @@ Feature: Sign In
     And I click some other field
     And I click on the login button
     Then A "This is not an Email valid" error message will pop up
-    And I will remain on the "login" page
+    And I will "remain in" the "login" page
 
     Examples:
       | information                |
@@ -44,11 +44,11 @@ Feature: Sign In
     And I click some other field
     And I click on the login button
     Then A "The password must not have spaces" error message will pop up
-    And I will remain on the "login" page
+    And I will "remain in" the "login" page
 
   Scenario: Unsuccessful login: unregistered user
     Given I am on the login page
     When I fill the required fields with unregistered credentials
     And I click on the login button
     Then A "Credentials are incorrect" error message will pop up
-    And I will remain on the "login" page
+    And I will "remain in" the "login" page

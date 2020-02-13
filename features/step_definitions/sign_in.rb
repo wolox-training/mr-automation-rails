@@ -10,15 +10,11 @@ When('I fill the required fields of the login form') do
 end
 
 And('I click on the login button') do
+  wait_for_element_to_display(:id, 'login', 1)
   click(:id, 'login')
 end
 
-Then('I will be redirected to the user home page') do
-  wait_for_element_to_display(:id, 'book_list_container', 2)
-  expect($driver.current_url).to eq(ENV['URL'] + '/books')
-end
-
-# Unsuccessful login: right email but wrong password
+# Unsuccessful login: unregistered credentials
 
 When('I fill the required fields with unregistered credentials') do
   wait_for_form_fields(:id, %w[email password])
