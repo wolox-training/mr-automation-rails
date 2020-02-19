@@ -1,6 +1,5 @@
 Given('I have access to the book list') do
-  wait_for_element_to_be_ready(:id, 'book_list')
-  wait(1)
+  wait_for_element_to_be_ready(:xpath, '//*[@id="book_item"]')
 end
 
 When('All the books are displayed') do
@@ -37,7 +36,7 @@ When('I click on any of the cards') do
 end
 
 Then('I will be redirected to the book details') do
-  author = get_element_text(:id, 'deatil_author').slice(17..)
+  author = get_element_text(:id, 'deatil_author').sub('Autor del libro: ', '')
   title = get_element_text(:id, 'book_tiitle').split(' (').first
   expect(check_element_presence(:id, 'detail', true)).to be(true)
   expect(title).to eq(@clicked_book_title)
@@ -52,14 +51,14 @@ And('I can check the book attributes') do
   expect(check_element_presence(:class, 'genre', true)).to be(true)
 end
 
-Then('I can check the suggestions bar shows four results') do
+And('I can check the suggestions bar shows four results') do
   wait_for_element_to_be_ready(:class, 'carousel-inner')
   @book_slides = $driver.find_elements(:id, 'slide')
   @book_slides_activos = process_slides(@book_slides)
   expect(@book_slides_activos.length).to eq(4)
 end
 
-Then('I can navigate {string} when i press the {string} button') do |_dir, direction|
+And('I can navigate {string} when i press the {string} button') do |_dir, direction|
   wait_for_element_to_be_ready(:class, "carousel-control-#{direction}")
   click(:class, "carousel-control-#{direction}")
   book_slides_previos = @book_slides_activos
