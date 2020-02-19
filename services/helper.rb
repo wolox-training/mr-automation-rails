@@ -41,3 +41,17 @@ def find_image(book_card_container)
   image_container = book_card_container.find_element(:id, 'book_card_image_container')
   image_container.find_element(:id, 'book_card_image')
 end
+
+def process_slide_element(slide_element)
+  slide_element.attribute('aria-hidden')
+end
+
+def process_slides(slides)
+  slides_activos = []
+  contador = 0
+  slides.each do |slide|
+    contador += 1
+    slides_activos.push(contador) unless process_slide_element(slide) == 'true'
+  end
+  slides_activos
+end
