@@ -1,4 +1,4 @@
-Before('@login') do
+Before('@login or @logged') do
   click(:id, 'loggout') if $driver.current_url == (ENV['URL'] + '/books')
 end
 
