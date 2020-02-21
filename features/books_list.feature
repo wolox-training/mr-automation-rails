@@ -5,12 +5,6 @@ Feature: Books List
   I want to check the books list and details
   To check that a book is loaded correctly and with consistent information when added to the list
 
-  Background: I am logged in
-    Given I am on the login page
-    And I fill the required fields of the login form
-    And I click on the login button
-    And I will "redirect to" the "books" page
-
   Scenario: Access to books list
     Given I have access to the book list
     When All the books are displayed

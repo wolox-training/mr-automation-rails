@@ -1,4 +1,5 @@
 Given('I have access to the book list') do
+  wait(1)
   wait_for_element_to_be_ready(:xpath, '//*[@id="book_item"]')
 end
 

@@ -55,3 +55,14 @@ def process_slides(slides)
   end
   slides_activos
 end
+
+def get_books_names(book_elements_list)
+  array_of_names = []
+  book_elements_list.each do |book_element|
+    container = book_element.find_element(:xpath, '//*[@id="book_card_container"]')
+    book_title = container.find_element(:xpath, '//*[@id="book_card_title"]')
+    puts book_title.text
+    array_of_names.push(book_title)
+  end
+  array_of_names
+end
