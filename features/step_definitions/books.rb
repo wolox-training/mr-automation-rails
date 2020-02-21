@@ -1,6 +1,5 @@
 Given('I have access to the book list') do
-  wait(1)
-  wait_for_element_to_be_ready(:xpath, '//*[@id="book_item"]')
+  wait_for_element_to_display(:xpath, '//*[@id="book_item"]', 2)
 end
 
 When('All the books are displayed') do

@@ -56,13 +56,41 @@ def process_slides(slides)
   slides_activos
 end
 
-def get_books_names(book_elements_list)
-  array_of_names = []
-  book_elements_list.each do |book_element|
-    container = book_element.find_element(:xpath, '//*[@id="book_card_container"]')
-    book_title = container.find_element(:xpath, '//*[@id="book_card_title"]')
-    puts book_title.text
-    array_of_names.push(book_title)
+def process_filter(date_filter)
+  filter = {}
+  case date_filter
+  when 'from_date'
+    filter[:xpath] = '//*[@id="search_picker"]/div/div/input'
+    filter[:date] = '01-01-2014'
+  when 'until_date'
+    filter[:xpath] = '//*[@id="date_picker"]/div/div/input'
+    filter[:date] = '12-31-2014'
   end
-  array_of_names
+  filter
+end
+
+def total_amount_of_books
+  book_count = 0
+  next_arrow = $driver.find_element(:xpath, '//*[@id="next_arrow"]')
+  while next_arrow.attribute(:class) != 'unable'
+    book_items = $driver.find_elements(:id, 'book_item')
+    book_count += book_items.length
+    click(:xpath, '//*[@id="next_arrow"]')
+  end
+  book_items = $driver.find_elements(:id, 'book_item')
+  book_count += book_items.length
+  book_count
+end
+
+def apply_filters
+  from_date_xpath = '//*[@id="search_picker"]/div/div/input'
+  until_date_xpath = '//*[@id="date_picker"]/div/div/input'
+  wait_for_element_to_be_ready(:xpath, from_date_xpath)
+  check_element_text(:xpath, '', from_date_xpath, true)
+  click(:xpath, from_date_xpath)
+  enter_text(:xpath, '01-01-2014', from_date_xpath)
+  wait_for_element_to_be_ready(:xpath, until_date_xpath)
+  check_element_text(:xpath, '', until_date_xpath, true)
+  click(:xpath, until_date_xpath)
+  enter_text(:xpath, '12-31-2014', until_date_xpath)
 end

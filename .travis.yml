@@ -31,7 +31,7 @@ before_install:
 
 script:
   - bundle exec rspec spec -fd
-  - bundle exec rubocop app spec -P --format simple
+  - bundle exec rubocop features --format simple
 
 #notifications:
 #  email:
