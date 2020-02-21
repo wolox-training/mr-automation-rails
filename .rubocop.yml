@@ -1,8 +1,19 @@
 Style/Documentation:
-   Enabled: false
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
-   Enabled: false
+  Enabled: false
 
 Layout/LineLength:
-   Max: 99
+  Max: 99
+
+AllCops:
+  Exclude:
+    - "features/support/env.rb"
+
+GlobalVars:
+  AllowedVariables:
+    - $driver
+
+Metrics/LineLength:
+  Max: 100
