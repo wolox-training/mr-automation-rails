@@ -20,12 +20,9 @@ And("There won't be books with publication date previous to the filter date") do
 end
 
 When('I fill the from_date with the latest publication date possible') do
-  calendar_button_xpath = '//*[@id="search_picker"]/div/div/div/button'
-  today_button_xpath = '//*[@id="search_picker"]/div/div[2]/table[1]/tr/td[2]/button'
-  wait_for_element_to_be_ready(:xpath, calendar_button_xpath)
-  click(:xpath, calendar_button_xpath)
-  wait_for_element_to_be_ready(:xpath, today_button_xpath)
-  click(:xpath, today_button_xpath)
+  from_date_filter_xpath = '//*[@id="search_picker"]/div/div/input'
+  wait_for_element_to_be_ready(:xpath, from_date_filter_xpath)
+  enter_text(:xpath, Time.now.strftime('%m-%d-%Y'), from_date_filter_xpath)
 end
 
 And('The book list will be empty') do
