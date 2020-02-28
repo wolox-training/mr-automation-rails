@@ -30,8 +30,8 @@ before_install:
 #   - bundle exec rake db:migrate
 
 script:
-  - bundle exec rspec spec -fd
-  - bundle exec rubocop app spec -P --format simple
+  - bundle exec rubocop features --format simple
+  - bundle exec cucumber
 
 #notifications:
 #  email:
